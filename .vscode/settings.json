@@ -1,8 +1,8 @@
 {
-  "cSpell.words": ["supabase", "turbopack"],
+  "cSpell.words": ["sonner", "supabase", "turbopack"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": true
+    "source.organizeImports.biome": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
   "[javascript]": {
