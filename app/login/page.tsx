@@ -5,9 +5,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import { LoginForm } from "./_components/LoginForm";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  // Check if user is already logged in
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  // If user is logged in, redirect to homepage
+  if (data?.user && !error) {
+    redirect("/");
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md shadow-lg">
