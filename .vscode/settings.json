@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["sonner", "supabase", "turbopack"],
+  "cSpell.words": ["Excalidraw", "oklch", "sonner", "supabase", "turbopack"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
