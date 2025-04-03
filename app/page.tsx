@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { BaseLayout } from "./_components/BaseLayout";
+import { AppLayout } from "./_components/AppLayout";
 
 const ExcalidrawWrapper = dynamic(
   async () => (await import("./_components/ExcalidrawWrapper")).default,
@@ -12,8 +12,8 @@ const ExcalidrawWrapper = dynamic(
 
 export default function Home() {
   return (
-    <BaseLayout>
+    <AppLayout>
       <ExcalidrawWrapper />
-    </BaseLayout>
+    </AppLayout>
   );
 }
