@@ -3,10 +3,13 @@ import {
   Excalidraw,
   convertToExcalidrawElements,
 } from "@excalidraw/excalidraw";
-
+import { Theme } from "@excalidraw/excalidraw/element/types";
 import "@excalidraw/excalidraw/index.css";
+import { useTheme } from "next-themes";
 
 const ExcalidrawWrapper: React.FC = () => {
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
   console.info(
     convertToExcalidrawElements([
       {
@@ -19,9 +22,10 @@ const ExcalidrawWrapper: React.FC = () => {
       },
     ])
   );
+  console.log("[debug log] - theme:", theme);
   return (
     <div className="h-screen w-full">
-      <Excalidraw />
+      <Excalidraw theme={currentTheme as Theme} />
     </div>
   );
 };
