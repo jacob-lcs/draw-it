@@ -1,8 +1,10 @@
-import TopLoader from "@/components/shared/TopLoader";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
+import TopLoader from "@/components/shared/TopLoader";
 import { Toaster } from "@/components/ui/sonner";
+import { UserStoreProvider } from "@/lib/providers/userStoreProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AppLayout } from "./_components/AppLayout";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,9 +33,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          {children}
-          <TopLoader />
-          <Toaster />
+          <UserStoreProvider>
+            <AppLayout>
+              {children}
+              <TopLoader />
+              <Toaster />
+            </AppLayout>
+          </UserStoreProvider>
         </ThemeProvider>
       </body>
     </html>
