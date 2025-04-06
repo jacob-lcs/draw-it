@@ -1,18 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from "@/utils/supabase/client";
-import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { AvatarCard } from "./_components/AvatarCard";
-import { ProfileForm } from "./_components/ProfileForm";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { AccountInfoCard } from "./_components/AccountInfoCard";
-import { SecuritySettingsTab } from "./_components/SecuritySettingsTab";
+import { AvatarCard } from "./_components/AvatarCard";
 import { PreferencesTab } from "./_components/PreferencesTab";
+import { ProfileForm } from "./_components/ProfileForm";
+import { SecuritySettingsTab } from "./_components/SecuritySettingsTab";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState("");
@@ -30,7 +29,6 @@ export default function ProfilePage() {
         } = await supabase.auth.getUser();
 
         if (user) {
-          setUser(user);
           setEmail(user.email || "");
           setDisplayName(
             user.user_metadata?.name || user.email?.split("@")[0] || ""
@@ -75,19 +73,17 @@ export default function ProfilePage() {
           <TabsContent value="profile">
             <div className="grid gap-6 md:grid-cols-2">
               <AvatarCard
-                user={user}
                 avatarUrl={avatarUrl}
                 onAvatarUpdate={handleAvatarUpdate}
               />
 
               <ProfileForm
-                user={user}
                 displayName={displayName}
                 email={email}
                 onNameUpdate={handleNameUpdate}
               />
 
-              <AccountInfoCard user={user} />
+              <AccountInfoCard />
             </div>
           </TabsContent>
 

@@ -7,13 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useUserStore } from "@/lib/providers/userStoreProvider";
 import { Check, X } from "lucide-react";
+import { useShallow } from "zustand/shallow";
 
-interface AccountInfoCardProps {
-  user: any;
-}
+export function AccountInfoCard() {
+  const {
+    id: userId,
+    createdAt,
+    lastSignInAt,
+    emailConfirmedAt,
+  } = useUserStore(
+    useShallow((state) => ({
+      id: state.baseInfo?.id,
+      createdAt: state.baseInfo?.created_at,
+      lastSignInAt: state.baseInfo?.last_sign_in_at,
+      emailConfirmedAt: state.baseInfo?.email_confirmed_at,
+    }))
+  );
 
-export function AccountInfoCard({ user }: AccountInfoCardProps) {
   return (
     <Card className="md:col-span-2">
       <CardHeader>
@@ -26,16 +38,14 @@ export function AccountInfoCard({ user }: AccountInfoCardProps) {
             <dt className="text-sm font-medium text-muted-foreground">
               账户ID
             </dt>
-            <dd className="mt-1 text-sm">{user?.id || "无"}</dd>
+            <dd className="mt-1 text-sm">{userId || "无"}</dd>
           </div>
           <div>
             <dt className="text-sm font-medium text-muted-foreground">
               账户创建时间
             </dt>
             <dd className="mt-1 text-sm">
-              {user?.created_at
-                ? new Date(user.created_at).toLocaleString("zh-CN")
-                : "无"}
+              {createdAt ? new Date(createdAt).toLocaleString("zh-CN") : "无"}
             </dd>
           </div>
           <div>
@@ -43,8 +53,8 @@ export function AccountInfoCard({ user }: AccountInfoCardProps) {
               上次登录
             </dt>
             <dd className="mt-1 text-sm">
-              {user?.last_sign_in_at
-                ? new Date(user.last_sign_in_at).toLocaleString("zh-CN")
+              {lastSignInAt
+                ? new Date(lastSignInAt).toLocaleString("zh-CN")
                 : "无数据"}
             </dd>
           </div>
@@ -53,7 +63,7 @@ export function AccountInfoCard({ user }: AccountInfoCardProps) {
               电子邮箱验证
             </dt>
             <dd className="mt-1 text-sm flex items-center">
-              {user?.email_confirmed_at ? (
+              {emailConfirmedAt ? (
                 <span className="flex items-center text-green-600">
                   <Check size={16} className="mr-1" />
                   已验证

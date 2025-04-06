@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -12,30 +9,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useUserStore } from "@/lib/providers/userStoreProvider";
 import { createClient } from "@/utils/supabase/client";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useShallow } from "zustand/shallow";
 
 interface ProfileFormProps {
-  user: any;
   displayName: string;
   email: string;
   onNameUpdate: (newName: string) => void;
 }
 
 export function ProfileForm({
-  user,
   displayName: initialDisplayName,
   email,
   onNameUpdate,
 }: ProfileFormProps) {
   const [updating, setUpdating] = useState(false);
   const [displayName, setDisplayName] = useState(initialDisplayName);
+  const { id: userId } = useUserStore(
+    useShallow((state) => ({
+      id: state.baseInfo?.id,
+    }))
+  );
 
   const supabase = createClient();
 
   const updateProfile = async () => {
-    if (!user) return;
+    if (!userId) return;
 
     try {
       setUpdating(true);

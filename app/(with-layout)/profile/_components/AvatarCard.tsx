@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,24 +8,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { toast } from "sonner";
-import { Loader2, Camera, User, Check, X } from "lucide-react";
+import { useUserStore } from "@/lib/providers/userStoreProvider";
 import { createClient } from "@/utils/supabase/client";
+import { Camera, Check, Loader2, User, X } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useShallow } from "zustand/shallow";
 
 interface AvatarCardProps {
-  user: any;
   avatarUrl: string | null;
   onAvatarUpdate: (newAvatarUrl: string) => void;
 }
 
-export function AvatarCard({
-  user,
-  avatarUrl,
-  onAvatarUpdate,
-}: AvatarCardProps) {
+export function AvatarCard({ avatarUrl, onAvatarUpdate }: AvatarCardProps) {
   const [updating, setUpdating] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const { id: userId } = useUserStore(
+    useShallow((state) => ({
+      id: state.baseInfo?.id,
+    }))
+  );
 
   const supabase = createClient();
 
@@ -62,7 +64,7 @@ export function AvatarCard({
   };
 
   const uploadAvatar = async () => {
-    if (!avatarFile || !user) return;
+    if (!avatarFile || !userId) return;
 
     try {
       setUpdating(true);
@@ -70,7 +72,7 @@ export function AvatarCard({
       // 为头像生成唯一文件名
       const fileExt = avatarFile.name.split(".").pop();
       const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `avatars/${user.id}/${fileName}`;
+      const filePath = `avatars/${userId}/${fileName}`;
 
       // 上传到 Supabase Storage
       const { error: uploadError } = await supabase.storage
