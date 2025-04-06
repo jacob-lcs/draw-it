@@ -1,10 +1,10 @@
 "use client";
 
 import { Sidebar } from "@/components/shared/Sidebar";
-import { useEffect, useState } from "react";
+import { useUserStore } from "@/lib/providers/userStoreProvider";
 import { createClient } from "@/utils/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import { useUserStore } from "@/lib/providers/userStoreProvider";
+import { useEffect, useState } from "react";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -18,14 +18,13 @@ export function AppLayout({ children }: AppLayoutProps) {
     async function getUser() {
       const { data } = await supabase.auth.getUser();
 
-      console.log("🚀 ~ getUser ~ data:", data);
       if (data.user) {
         setBaseInfo(data.user);
       }
     }
 
     getUser();
-  }, []);
+  }, [supabase, setBaseInfo]);
 
   return (
     <div className="flex h-screen overflow-hidden">

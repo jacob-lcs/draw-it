@@ -3,7 +3,7 @@ import {
   Excalidraw,
   convertToExcalidrawElements,
 } from "@excalidraw/excalidraw";
-import { Theme } from "@excalidraw/excalidraw/element/types";
+import type { Theme } from "@excalidraw/excalidraw/element/types";
 import "@excalidraw/excalidraw/index.css";
 import { useTheme } from "next-themes";
 

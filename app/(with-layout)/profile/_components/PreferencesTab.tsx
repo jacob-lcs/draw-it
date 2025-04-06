@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,7 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Moon, Sun, Laptop, ChevronDown } from "lucide-react";
+import { ChevronDown, Laptop, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const themeOptions = [
