@@ -1,3 +1,4 @@
+import { BaseLayout } from "@/app/_components/BaseLayout";
 import {
   Card,
   CardContent,
@@ -8,7 +9,6 @@ import {
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./_components/LoginForm";
-import { BaseLayout } from "../_components/BaseLayout";
 
 export default async function LoginPage() {
   // Check if user is already logged in
