@@ -22,7 +22,6 @@ const ExcalidrawWrapper: React.FC = () => {
       },
     ])
   );
-  console.log("[debug log] - theme:", theme);
   return (
     <div className="h-screen w-full">
       <Excalidraw theme={currentTheme as Theme} />
