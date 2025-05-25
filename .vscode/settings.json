@@ -1,6 +1,7 @@
 {
   "cSpell.words": ["Excalidraw", "oklch", "sonner", "supabase", "turbopack"],
   "editor.formatOnSave": true,
+  "typescript.experimental.useTsgo": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit",
     "source.fixAll.biome": "explicit"
@@ -10,7 +11,7 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"

@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, createContext, useRef, useContext } from "react";
+import { type ReactNode, createContext, useContext, useRef } from "react";
 import { useStore } from "zustand";
 
 import { type UserStore, createUserStore } from "@/lib/stores/userStore";
@@ -32,7 +32,7 @@ export const useUserStore = <T,>(selector: (store: UserStore) => T): T => {
   const userStoreContext = useContext(UserStoreContext);
 
   if (!userStoreContext) {
-    throw new Error(`useUserStore must be used within UserStoreProvider`);
+    throw new Error("useUserStore must be used within UserStoreProvider");
   }
 
   return useStore(userStoreContext, selector);
